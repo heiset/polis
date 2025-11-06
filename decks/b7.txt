@@ -1,4 +1,4 @@
-Nationēs = “It is good to obey the laws of one’s country.” —Gyaecis
+Nationēs (Countries) = “It is good to obey the laws of one’s country.” —Gyaecis
 
 United States of America = Cīvitātēs Foederātae Americae
 New York = Novum Eborācum
