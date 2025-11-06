@@ -1,4 +1,4 @@
-Ubi habitās? (Where are you from?) = "He who dwells everywhere, Maximus, dwells nowhere." —Martial
+Unde oriundus? (Where are you from?) = "He who dwells everywhere, Maximus, dwells nowhere." —Martial
 
 Where do you live? = Ubi habitās?
 I live in a town = In oppidō habitō.
