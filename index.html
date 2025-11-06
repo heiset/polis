@@ -61,29 +61,29 @@
       display: grid;
       gap: 32px;
     }
-
+    
 .card{
   border: 3px solid var(--fg);
   border-radius: 40px;
-  /* make the actual card transparent… */
-  background: transparent;
-  /* …and draw the black panel inside with ::before */
+  background: transparent;        /* no black on the element itself */
   position: relative;
+  overflow: hidden;               /* clip inner layer to the rounded border */
   padding: 64px 44px 36px;
   text-align: center;
 }
 
-/* inner black panel, inset from the white border */
+/* inner black panel, slightly inset from the border */
 .card::before{
   content: "";
   position: absolute;
-  inset: 12px;                        /* tweak this to change how much black you see */
+  inset: 12px;                    /* how much to shrink the black panel */
   background: rgba(0,0,0,0.8);
-  border-radius: calc(40px - 12px);   /* keep corners nicely rounded */
+  border-radius: 28px;            /* = 40px (card) - 12px (inset) */
+  pointer-events: none;
   z-index: 0;
 }
 
-/* ensure your content sits above the inner panel */
+/* keep content above the inner panel */
 .card > * { position: relative; z-index: 1; }
 
 
