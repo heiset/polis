@@ -15,7 +15,8 @@
     body {
       font-family: "Times New Roman", Georgia, serif;
       color: var(--fg);
-      background: url('bg.jpg') center/cover no-repeat fixed;
+      background: url('bg.jpg') center/cover no-repeat;
+      background-attachment: scroll;
       display: grid;
       place-items: center;
       padding: 32px;
@@ -34,19 +35,20 @@
       box-shadow: 0 0 30px rgba(255,255,255,0.1);
     }
     #stage {
-      min-height: clamp(180px, 34vh, 320px);
+      min-height: clamp(220px, 40vh, 400px);
       display: grid;
       place-items: center;
       gap: 12px;
     }
     .prompt {
-      font-size: clamp(28px, 3vw, 40px);
+      font-size: clamp(32px, 3.5vw, 48px);
       margin-bottom: 8px;
     }
     .translation {
       display: block;
-      min-height: 2.2em;
+      min-height: 2.4em;
       transition: opacity .15s ease;
+      font-size: clamp(26px, 2.8vw, 38px);
     }
     .translation.hidden {
       visibility: hidden;
