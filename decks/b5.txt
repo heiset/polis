@@ -1,8 +1,0 @@
-Where are you from? = "And besides, it is much more reasonable to believe the Roman historians in such things than Greeks and foreigners." —Montaigne
-
-Where do you live? = Ubi habitās?
-I live in a town = In oppidō habitō.
-Where are you (all) from? = Unde oriundus (m.) / oriunda (f.) es? / estis?
-I’m from... = Oriundus (m.) / oriunda (f.) sum ex...
-Where were you born? = Ubi nātus (m.) / nāta (f.) es?
-I was born in... = Nātus (m.) / nāta (f.) sum in...
