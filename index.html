@@ -61,15 +61,30 @@
       display: grid;
       gap: 32px;
     }
-    .card {
-      border: 3px solid var(--fg);
-      border-radius: 40px;
-      padding: 60px 40px 32px;
-      background: rgba(0,0,0,0.8);
-       background-clip: padding-box; /* keeps black fill inside the white border */
-      box-shadow: 0 0 40px rgba(255,255,255,0.08);
-      text-align: center;
-    }
+.card{
+  border: 3px solid var(--fg);
+  border-radius: 40px;
+  /* make the actual card transparent… */
+  background: transparent;
+  /* …and draw the black panel inside with ::before */
+  position: relative;
+  padding: 64px 44px 36px;
+  text-align: center;
+}
+
+/* inner black panel, inset from the white border */
+.card::before{
+  content: "";
+  position: absolute;
+  inset: 2px;                        /* tweak this to change how much black you see */
+  background: rgba(0,0,0,0.8);
+  border-radius: calc(40px - 12px);   /* keep corners nicely rounded */
+  z-index: 0;
+}
+
+/* ensure your content sits above the inner panel */
+.card > * { position: relative; z-index: 1; }
+
     .prompt {
       font-size: clamp(28px, 3vw, 40px);
       margin-bottom: 24px;
