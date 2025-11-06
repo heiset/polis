@@ -28,15 +28,13 @@
       position: fixed;
       inset: 0;
       background: url('bg.jpg') center/cover no-repeat;
-      filter: grayscale(100%) contrast(1.25) brightness(0.7);
-      opacity: 0.35;
+      /* show the image clearly */
+      filter: none;
+      opacity: 1;
       z-index: -2;
     }
     /* Dark overlay to keep text legible */
-    body::after{
-      content:"";
-      position: fixed; inset:0; background: radial-gradient(ellipse at center, rgba(0,0,0,0.4), rgba(0,0,0,0.9)); z-index:-1;
-    }
+    /* removed dark overlay to keep background fully visible */
     body {
       font-family: "Times New Roman", Georgia, serif;
       color: var(--fg);
@@ -105,7 +103,7 @@
     #stage{ min-height: clamp(180px, 34vh, 320px); display: grid; place-items: center; gap: 12px; }
     .prompt{ margin-bottom: 8px; }
     /* Reserve space for translation even when hidden */
-    .translation{ min-height: 2.2em; transition: opacity .15s ease; }
+    .translation{ display:block; min-height: 2.2em; transition: opacity .15s ease; }
     .translation.hidden{ visibility: hidden; opacity: 0; }
     .translation.visible{ visibility: visible; opacity: 0.9; }
   </style>
@@ -115,7 +113,7 @@
     <div class="card">
       <div id="stage">
         <div class="prompt" id="lineText" aria-live="polite"></div>
-        <div class="translation" id="lineTrans" style="display:none;margin-top:16px"></div>
+        <div class="translation hidden" id="lineTrans" style="margin-top:16px"></div>
       </div>
       <div class="row controls-bottom" id="controlsBottom">
         <button id="prevBtn">⟵ Prev</button>
@@ -172,6 +170,7 @@
       nextBtn.disabled = false; prevBtn.disabled = false;
       lineText.textContent = current.q;
       lineTrans.textContent = current.a;
+      lineTrans.style.display = 'block';
       lineTrans.classList.toggle('visible', !!showingA);
       lineTrans.classList.toggle('hidden', !showingA);
     }
