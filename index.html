@@ -65,26 +65,13 @@
 .card{
   border: 3px solid var(--fg);
   border-radius: 40px;
-  background: transparent;        /* no black on the element itself */
+  background: rgba(0,0,0,0.8);
+  background-clip: padding-box;   /* <-- this now works again */
   position: relative;
-  overflow: hidden;               /* clip inner layer to the rounded border */
   padding: 64px 44px 36px;
   text-align: center;
 }
 
-/* inner black panel, slightly inset from the border */
-.card::before{
-  content: "";
-  position: absolute;
-  inset: 12px;                    /* how much to shrink the black panel */
-  background: rgba(0,0,0,0.8);
-  border-radius: 28px;            /* = 40px (card) - 12px (inset) */
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* keep content above the inner panel */
-.card > * { position: relative; z-index: 1; }
 
 
     .prompt {
