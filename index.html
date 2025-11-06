@@ -66,10 +66,15 @@
     button:disabled{ opacity:.35; cursor:not-allowed }
 
     .footer{ text-align:center; opacity:.6; font-size:14px; letter-spacing:.6px }
+    .footer-title{ font-family: 'Arial', 'Helvetica', sans-serif; font-weight: bold; color: #39ff14; font-size: 13px; letter-spacing: 1.2px; text-transform: uppercase; }
+    .shuffle-btn{ display:flex; justify-content:center; margin-bottom:16px }
   </style>
 </head>
 <body>
   <main class="app" id="app">
+    <div class="shuffle-btn">
+      <button id="shuffleBtn">🔀 Shuffle</button>
+    </div>
     <div class="card">
       <div id="stage">
         <div class="prompt" id="lineText" aria-live="polite"></div>
@@ -80,7 +85,12 @@
         <button id="nextBtn">Next ⟶</button>
       </div>
     </div>
-    <div class="footer">Latin Flashcards · Mr. Heise</div>
+    <div class="footer">
+      Latin Flashcards · Mr. Heise<br>
+      <span style="opacity:0.7; font-size:12px; margin-top:8px; display:inline-block;">
+        Keyboard: Space or → for Next · ← for Previous
+      </span>
+    </div>
   </main>
 
   <script>
@@ -99,10 +109,26 @@
     const lineTrans = el('lineTrans');
     const nextBtn = el('nextBtn');
     const prevBtn = el('prevBtn');
+    const shuffleBtn = el('shuffleBtn');
 
     let order = deck.map((_, i) => i);
     let idx = 0;
     let showingA = false;
+
+    function shuffleArray(arr){
+      for(let i=arr.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [arr[i],arr[j]] = [arr[j],arr[i]];
+      }
+      return arr;
+    }
+
+    function shuffleDeck(){
+      order = shuffleArray(deck.map((_, i) => i));
+      idx = 0;
+      showingA = false;
+      render();
+    }
 
     function rebuildOrder(){
       order = deck.map((_, i) => i);
@@ -154,6 +180,7 @@
 
     nextBtn.addEventListener('click', next);
     prevBtn.addEventListener('click', prev);
+    shuffleBtn.addEventListener('click', shuffleDeck);
 
     window.addEventListener('keydown', (e) => {
       if(e.code === 'Space' || e.key === 'ArrowRight'){ e.preventDefault(); next(); }
