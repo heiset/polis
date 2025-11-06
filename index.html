@@ -13,23 +13,37 @@
     body{
       font-family:"Times New Roman", Georgia, serif;
       color:var(--fg);
-      background:url('bg.jpg') center center / cover no-repeat fixed;
-      background-size:100% 100%; /* ensures full coverage on mobile */
+      background: url('bg.jpg') center/cover no-repeat fixed;
       display:block;
       min-height:100vh;
     }
 
     .app{ width:min(860px,94%); margin:14vh auto 24vh; display:grid; gap:28px }
 
-    .card{
-      border:3px solid var(--fg);
-      border-radius:40px;
-      background:rgba(0,0,0,0.8);
-      background-clip:padding-box; /* keeps black fill strictly within white border */
-      padding:64px 44px 36px;
-      text-align:center;
-      box-shadow:none; /* remove outer shadow that extended beyond border */
-    }
+.card{
+  border: 3px solid var(--fg);
+  border-radius: 40px;
+  /* make the actual card transparent… */
+  background: transparent;
+  /* …and draw the black panel inside with ::before */
+  position: relative;
+  padding: 64px 44px 36px;
+  text-align: center;
+}
+
+/* inner black panel, inset from the white border */
+.card::before{
+  content: "";
+  position: absolute;
+  inset: 12px;                        /* tweak this to change how much black you see */
+  background: rgba(0,0,0,0.8);
+  border-radius: calc(40px - 12px);   /* keep corners nicely rounded */
+  z-index: 0;
+}
+
+/* ensure your content sits above the inner panel */
+.card > * { position: relative; z-index: 1; }
+
 
     #stage{ min-height:clamp(220px,40vh,420px); display:grid; place-items:center; gap:14px }
 
