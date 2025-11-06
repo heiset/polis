@@ -11,7 +11,15 @@
       --muted: #888;
     }
     * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; }
+    html, body {
+      font-family: "Times New Roman", Georgia, serif;
+      color: var(--fg);
+      background: url('bg.jpg') center/cover no-repeat fixed; /* fixed bg for parallax feel */
+      display: block; /* allow normal document flow */
+      min-height: 100vh;
+      margin: 0;
+      padding: 0; /* remove centering/padding that prevented scroll */
+    }
     body {
       font-family: "Times New Roman", Georgia, serif;
       color: var(--fg);
@@ -22,9 +30,10 @@
       padding: 32px;
     }
     .app {
-      width: min(800px, 100%);
+      width: min(800px, 92%);
       display: grid;
       gap: 32px;
+      margin: 14vh auto 24vh; /* vertical margins create scroll so card moves over bg */
     }
     .card {
       border: 3px solid var(--fg);
@@ -222,3 +231,4 @@
   </script>
 </body>
 </html>
+
