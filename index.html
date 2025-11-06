@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Latin Phrases</title>
+  <title>Tiny Flashcards</title>
   <style>
     :root {
       --bg: #000;
@@ -61,6 +61,7 @@
       display: grid;
       gap: 32px;
     }
+
 .card{
   border: 3px solid var(--fg);
   border-radius: 40px;
@@ -76,7 +77,7 @@
 .card::before{
   content: "";
   position: absolute;
-  inset: 2px;                        /* tweak this to change how much black you see */
+  inset: 12px;                        /* tweak this to change how much black you see */
   background: rgba(0,0,0,0.8);
   border-radius: calc(40px - 12px);   /* keep corners nicely rounded */
   z-index: 0;
@@ -84,6 +85,7 @@
 
 /* ensure your content sits above the inner panel */
 .card > * { position: relative; z-index: 1; }
+
 
     .prompt {
       font-size: clamp(28px, 3vw, 40px);
@@ -150,7 +152,7 @@
         <button id="nextBtn">Next ⟶</button>
       </div>
     </div>
-    <div class="footer">mr. heise's latin flashcards</div>
+    <div class="footer">Latin Flashcards · Mr. Heise</div>
   </main>
 
   <script>
@@ -173,6 +175,85 @@
     let order = deck.map((_, i) => i);
     let idx = 0;
     let showingA = false;
+
+    function shuffleArray(arr){
+      for(let i=arr.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [arr[i],arr[j]] = [arr[j],arr[i]];
+      }
+      return arr;
+    }
+
+    function rebuildOrder(){
+      order = deck.map((_, i) => i);
+      idx = 0;
+      showingA = false;
+      render();
+    }
+
+    function render(){
+      const current = deck[ order[idx] ];
+      if(!current){
+        lineText.textContent = "(No cards)";
+        lineTrans.style.display = 'none';
+        nextBtn.disabled = true; prevBtn.disabled = true;
+        return;
+      }
+      nextBtn.disabled = false; prevBtn.disabled = false;
+      lineText.textContent = current.q;
+      lineTrans.textContent = current.a;
+      lineTrans.style.display = 'block';
+      lineTrans.classList.toggle('visible', !!showingA);
+      lineTrans.classList.toggle('hidden', !showingA);
+    }
+
+    function next(){
+      if(deck.length===0) return;
+      if(!showingA){
+        showingA = true;
+      } else {
+        if(idx < order.length - 1){
+          idx++;
+          showingA = false;
+        } else {
+          idx = 0;
+          showingA = false;
+        }
+      }
+      render();
+    }
+
+    function prev(){
+      if(deck.length===0) return;
+      if(showingA){
+        showingA = false;
+      } else if(idx>0){
+        idx--; showingA = false;
+      }
+      render();
+    }
+
+    nextBtn.addEventListener('click', next);
+    prevBtn.addEventListener('click', prev);
+
+    window.addEventListener('keydown', (e) => {
+      if(e.code === 'Space' || e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+      if(e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+    });
+
+    function parseLinesToDeck(text){
+      const lines = text.split(/\n+/).map(s=>s.trim()).filter(Boolean);
+      const out = [];
+      for(const line of lines){
+        const parts = line.split(/\s*(?:=|—|-|:)\s*/);
+        if(parts.length>=2){
+          const q = parts[0].trim();
+          const a = parts.slice(1).join(' - ').trim();
+          if(q && a) out.push({q,a});
+        }
+      }
+      return out;
+    }
 
     async function loadRandomDeckFromUrls(){
       if(!Array.isArray(DECK_URLS) || !DECK_URLS.length) return false;
