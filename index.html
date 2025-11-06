@@ -57,23 +57,16 @@
     button:hover{ background:var(--fg); color:var(--bg) }
     button:disabled{ opacity:.35; cursor:not-allowed }
 
-    .footer{ text-align:center; opacity:.6; font-size:14px; letter-spacing:.6px }
-  </style>
-</head>
-<body>
-  <main class="app" id="app">
-    <div class="card">
-      <div id="stage">
-        <div class="prompt" id="lineText" aria-live="polite"></div>
-        <div class="translation hidden" id="lineTrans" style="margin-top:16px"></div>
-      </div>
-      <div class="row" id="controlsBottom">
-        <button id="prevBtn">⟵ Prev</button>
-        <button id="nextBtn">Next ⟶</button>
-      </div>
-    </div>
-    <div class="footer">Latin Flashcards · Mr. Heise</div>
-  </main>
+
+  .footer {
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 0.6px;
+  font-weight: bold;
+  color: #39FF14;       /* neon green */
+  text-shadow: 0 0 8px #39FF14, 0 0 12px #39FF14; /* glowing neon effect */
+}
+
 
   <script>
     let deck = [
